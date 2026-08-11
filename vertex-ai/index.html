@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>European STEM Master's Explorer</title>
+    <script src="https://cloud.google.com/ai/gen-app-builder/client?hl=en_US"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 70%);
+            bottom: -80px;
+            left: -80px;
+            border-radius: 50%;
+            filter: blur(60px);
+            animation: float 10s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-30px) translateX(20px);
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 32px;
+            padding: 60px 50px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            position: relative;
+            z-index: 1;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #ffffff;
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            text-align: center;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+            letter-spacing: -0.5px;
+        }
+
+        .subheader {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 20px;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .description {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 15px;
+            line-height: 1.7;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .description strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        .search-wrapper {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        #searchWidgetTrigger {
+            width: 100%;
+            padding: 18px 24px;
+            padding-left: 52px;
+            font-size: 17px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            color: #333;
+            font-weight: 500;
+        }
+
+        #searchWidgetTrigger::placeholder {
+            color: rgba(51, 51, 51, 0.5);
+        }
+
+        #searchWidgetTrigger:hover {
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        #searchWidgetTrigger:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.7);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #3b82f6;
+            font-size: 20px;
+            pointer-events: none;
+        }
+
+        .examples {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+
+        .example-chip {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .example-chip:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        gen-search-widget {
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .subheader {
+                font-size: 18px;
+            }
+
+            .description {
+                font-size: 14px;
+                padding: 20px;
+            }
+
+            #searchWidgetTrigger {
+                font-size: 16px;
+                padding: 16px 20px;
+                padding-left: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>European STEM Master's Explorer</h1>
+        <p class="subheader">A Data-Driven Journey Through Europe’s STEM Master’s Landscape</p>
+        
+        <div class="description">
+            Discover and compare master's programs across Europe.<br>
+            Click any suggestion below to get started instantly!
+        </div>
+
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input placeholder="Ask about STEM programs, countries, costs, or requirements..." id="searchWidgetTrigger" />
+        </div>
+
+        <div class="examples">
+            <span class="example-chip" onclick="copyToClipboard('Which country offers the best AI programs in Europe?')">💻 AI programs in Germany</span>
+            <span class="example-chip" onclick="copyToClipboard('Find affordable biotechnology master degrees under €3000')">🔬 Affordable biotech degrees</span>
+            <span class="example-chip" onclick="copyToClipboard('Compare Data Science programs across European universities')">📊 Data Science rankings</span>
+            <span class="example-chip" onclick="copyToClipboard('English-taught STEM master programs in Europe')">🌍 English-taught programs</span>
+        </div>
+
+        <gen-search-widget
+            configId="3439e3b3-5a3c-45e6-b8a6-bbaed9e909d2"
+            triggerId="searchWidgetTrigger">
+        </gen-search-widget>
+    </div>
+
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Başarılı kopyalama bildirimi
+                const notification = document.createElement('div');
+                notification.textContent = '✓ Copied! Paste it in the search box';
+                notification.style.cssText = `
+                    position: fixed;
+                    bottom: 30px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(59, 130, 246, 0.95);
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 12px;
+                    font-weight: 500;
+                    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+                    z-index: 1000;
+                    animation: slideUp 0.3s ease-out;
+                `;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.3s ease';
+                    setTimeout(() => notification.remove(), 300);
+                }, 2000);
+            }).catch(err => {
+                console.error('Kopyalama başarısız:', err);
+                alert('Please manually copy the question');
+            });
+        }
+    </script>
+</body>
+</html>
+
