@@ -3,35 +3,6 @@
 An end-to-end data analytics project exploring European STEM master's programs using Python, Selenium, Oracle SQL, Power BI, and Vertex AI.
 
 The project covers the full data pipeline: web scraping, data cleaning, relational data modeling, dashboard development, and an AI-powered web interface.
-## Project Overview
-
-European STEM master's program information is often scattered across different sources and difficult to compare consistently.
-
-This project was created to collect, clean, structure, and analyze master's program data across Europe in a single analytical workflow.
-
-## Objective
-
-The main objectives of the project were to:
-
-- Build a consolidated dataset of European STEM master's programs.
-- Standardize academic, financial, structural, and admissions-related information.
-- Create a relational data model using Oracle SQL.
-- Analyze program distribution, tuition, study formats, language requirements, and employability-related indicators.
-- Develop an interactive Power BI dashboard for exploring program options.
-- Build a Vertex AI-powered web interface for interactive querying of the dataset.
-
-Bu məzmun sənin təqdimatındakı problem, objective və layihənin məqsədlərinə uyğundur.
-
-Commit message:
-
-Add project overview and objectives
-
-Bitirəndə “overview hazırdır” yaz. Sonra Data Pipeline hissəsini əlavə edəcəyik.
-
-hamısını yaz da birdəfəyə
-Worked for 15s
-
-Oldu. README-ni birdəfəyə tam yazaq. Aşağıdakı mətni bütöv şəkildə README.md-yə yapışdır.
 
 # European STEM Master's Exploration
 
@@ -104,6 +75,7 @@ Relational / Normalized Tables
  ↓                       ↓
 Power BI             Vertex AI
 Dashboard            Web Interface
+
 1. Web Scraping
 
 The first stage of the project involved collecting European STEM master's program data using Python and Selenium.
@@ -162,8 +134,8 @@ sql/normalization.sql
 sql/normalization_2.sql
 
 The normalized output tables are available in:
-
 data/normalized/
+
 4. Power BI Dashboard
 
 The normalized SQL output tables were imported into Power BI and connected through a relational data model.
@@ -190,8 +162,8 @@ Financials & Learning Formats
 Language & Admissions
 
 The Power BI project file is available in:
-
 powerbi/
+
 Dashboard Demo
 
 A recorded walkthrough of the Power BI dashboard is available here:
@@ -203,8 +175,8 @@ Watch the Power BI Dashboard Demo
 A Vertex AI-powered chatbot interface was developed to support interactive exploration of the European STEM master's dataset.
 
 The frontend files are available in:
-
 vertex-ai/
+
 Web Interface
 
 Open the Vertex AI Web Interface
@@ -237,6 +209,7 @@ Vertex AI	AI-powered dataset exploration
 HTML	Web interface
 GitHub Pages	Publishing the web interface
 Excel	Intermediate and normalized datasets
+
 Repository Structure
 european-stem-masters-analysis/
 │
@@ -272,15 +245,14 @@ european-stem-masters-analysis/
 │   └── vercel.json
 │
 └── README.md
-Project Presentation
 
 A complete presentation covering the project motivation, methodology, scraping process, SQL normalization, data model, Power BI analysis, and AI chatbot is available in:
-
 presentation/
+
 End-to-End Process
 
 In summary, the project demonstrates an end-to-end data analytics workflow:
 
 Data Collection → Data Cleaning → Data Transformation → SQL Modeling → Business Intelligence → AI Interface
 
-Rather than analyzing an already prepared dataset, the project begins with collecting raw web data and continues through each stage required to transform that data into an analytical product
+Rather than analyzing an already prepared dataset, the project begins with collecting raw web data and continues through each stage required to transform that data into an analytical product.
